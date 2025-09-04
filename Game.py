@@ -25,14 +25,23 @@ def ball_movement():
             score += 1# Increase player score
             ball_speed_y *= -1  # Reverse ball's vertical direction
             # TODO Task 6: Add sound effects HERE
+            pygame.mixer.init()
+            ball_sfx= pygame.mixer.Sound("pong sfx/pingpong2.wav")
+            pygame.mixer.Sound.play(ball_sfx)
 
     # Ball collision with top boundary
     if ball.top <= 0:
         ball_speed_y *= -1  # Reverse ball's vertical direction
+        pygame.mixer.init()
+        wall_sfx = pygame.mixer.Sound("pong sfx/bounce.wav")
+        pygame.mixer.Sound.play(wall_sfx)
 
     # Ball collision with left and right boundaries
     if ball.left <= 0 or ball.right >= screen_width:
         ball_speed_x *= -1
+        pygame.mixer.init()
+        wall_sfx = pygame.mixer.Sound("pong sfx/bounce.wav")
+        pygame.mixer.Sound.play(wall_sfx)
 
     # Ball goes below the bottom boundary (missed by player)
     if ball.bottom > screen_height:
