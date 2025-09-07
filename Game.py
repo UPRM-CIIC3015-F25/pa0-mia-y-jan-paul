@@ -4,7 +4,7 @@ def ball_movement():
     """
     Handles the movement of the ball and collision detection with the player and screen boundaries.
     """
-    global ball_speed_x, ball_speed_y, score, start
+    global ball_speed_x, ball_speed_y, score, high_score,  start
 
     # Move the ball
     ball.x += ball_speed_x
@@ -23,6 +23,9 @@ def ball_movement():
         if abs(ball.bottom - player.top) < 10:  # Check if ball hits the top of the paddle
             # TODO Task 2: Fix score to increase by 1
             score += 1# Increase player score
+            if score > high_score:
+                high_score = score
+
             ball_speed_y *= -1  # Reverse ball's vertical direction
             # TODO Task 6: Add sound effects HERE
             pygame.mixer.init()
@@ -96,6 +99,7 @@ player_speed = 0
 
 # Score Text setup
 score = 0
+high_score = 0  # New line to track highest score
 basic_font = pygame.font.Font('freesansbold.ttf', 32)  # Font for displaying score
 
 start = False  # Indicates if the game has started
@@ -133,8 +137,14 @@ while True:
     pygame.draw.rect(screen, light_grey, player)  # Draw player paddle
     # TODO Task 3: Change the Ball Color
     pygame.draw.ellipse(screen, red, ball)  # Draw ball
-    player_text = basic_font.render(f'{score}', False, light_grey)  # Render player score
-    screen.blit(player_text, (screen_width/2 - 15, 10))  # Display score on screen
+    # Render and display high score on left, score on right
+    high_score_text = basic_font.render(f'High Score: {high_score}', False, light_grey)
+    score_text = basic_font.render(f'Score: {score}', False, light_grey)
+    # Left side (high score)
+    screen.blit(high_score_text, (10, 10))
+    # Right side (score)
+    score_x = screen_width - score_text.get_width() - 10
+    screen.blit(score_text, (score_x, 10))
 
     # Update display
     pygame.display.flip()
