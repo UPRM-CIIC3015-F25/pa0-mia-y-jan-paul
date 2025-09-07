@@ -133,12 +133,13 @@ while True:
     # Visuals
     light_grey = pygame.Color('grey83')
     red = pygame.Color('red')
+    gold = pygame.Color('gold')
     screen.fill(bg_color)  # Clear screen with background color
     pygame.draw.rect(screen, light_grey, player)  # Draw player paddle
     # TODO Task 3: Change the Ball Color
     pygame.draw.ellipse(screen, red, ball)  # Draw ball
     # Render and display high score on left, score on right
-    high_score_text = basic_font.render(f'High Score: {high_score}', False, light_grey)
+    high_score_text = basic_font.render(f'High Score: {high_score}', False, gold)
     score_text = basic_font.render(f'Score: {score}', False, light_grey)
     # Left side (high score)
     screen.blit(high_score_text, (10, 10))
